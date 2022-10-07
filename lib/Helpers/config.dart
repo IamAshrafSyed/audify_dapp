@@ -1,22 +1,3 @@
-/*
- *  This file is part of BlackHole (https://github.com/Sangwan5688/BlackHole).
- * 
- * BlackHole is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * BlackHole is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with BlackHole.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright (c) 2021-2022, Ankit Sangwan
- */
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -177,7 +158,7 @@ class MyTheme with ChangeNotifier {
     if (_useSystemTheme == true) {
       return ThemeMode.system;
     } else {
-      return _isDark ? ThemeMode.dark : ThemeMode.light;
+      return ThemeMode.dark;
     }
   }
 
@@ -190,7 +171,7 @@ class MyTheme with ChangeNotifier {
       case 'Red':
         return Colors.redAccent[hue]!;
       case 'Teal':
-        return Colors.tealAccent[hue]!;
+        return Color.fromARGB(255, 10, 65, 2);
       case 'Light Blue':
         return Colors.lightBlueAccent[hue]!;
       case 'Yellow':
@@ -206,7 +187,7 @@ class MyTheme with ChangeNotifier {
       case 'Pink':
         return Colors.pinkAccent[hue]!;
       case 'Green':
-        return Colors.greenAccent[hue]!;
+        return Color.fromARGB(255, 39, 218, 12);
       case 'Amber':
         return Colors.amberAccent[hue]!;
       case 'Indigo':
@@ -223,7 +204,7 @@ class MyTheme with ChangeNotifier {
         return Colors.white;
 
       default:
-        return _isDark ? Colors.tealAccent[400]! : Colors.lightBlueAccent[400]!;
+        return Color.fromARGB(255, 145, 80, 5);
     }
   }
 
@@ -278,7 +259,7 @@ class MyTheme with ChangeNotifier {
       case 'Red':
         return Colors.redAccent[currentHue()]!;
       case 'Teal':
-        return Colors.tealAccent[currentHue()]!;
+        return Color.fromARGB(255, 103, 163, 94);
       case 'Light Blue':
         return Colors.lightBlueAccent[currentHue()]!;
       case 'Yellow':
@@ -311,7 +292,7 @@ class MyTheme with ChangeNotifier {
         return Colors.white;
 
       default:
-        return _isDark ? Colors.tealAccent[400]! : Colors.lightBlueAccent[400]!;
+        return Color.fromARGB(255, 145, 80, 5);
     }
   }
 

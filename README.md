@@ -6,7 +6,7 @@ An Open-Source Music Player App for all your needs!
 
 [![made-with-flutter](https://img.shields.io/badge/Made%20with-Flutter-1f425f.svg)](https://flutter.dev/) ![Release](https://img.shields.io/github/v/release/Sangwan5688/BlackHole) ![Downloads](https://img.shields.io/github/downloads/Sangwan5688/BlackHole/total)
 [![Build](https://github.com/Sangwan5688/BlackHole/actions/workflows/flutter.yml/badge.svg)](https://github.com/Sangwan5688/BlackHole/actions/workflows/flutter.yml)
-[![Translation-Status](https://hosted.weblate.org/widgets/blackhole/-/translations/svg-badge.svg)](https://hosted.weblate.org/engage/blackhole/)
+[![Translation-Status](https://hosted.weblate.org/widgets/audify/-/translations/svg-badge.svg)](https://hosted.weblate.org/engage/audify/)
 
 ### Don't forget to :star: the repo
 
@@ -16,10 +16,10 @@ An Open-Source Music Player App for all your needs!
 
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
      alt="Get it on IzzyDroid"
-     height="100">](https://android.izzysoft.de/repo/apk/com.shadow.blackhole)
+     height="100">](https://android.izzysoft.de/repo/apk/com.shadow.audify)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
-     height="100">](https://f-droid.org/packages/com.shadow.blackhole/)
+     height="100">](https://f-droid.org/packages/com.shadow.audify/)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [<img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
@@ -37,7 +37,7 @@ An Open-Source Music Player App for all your needs!
 - [French :fr:](/README.FR.md)
 - [Portuguese :brazil:](/README.PT.md)
 
-[Translate App on Weblate](https://hosted.weblate.org/projects/blackhole/translations/)
+[Translate App on Weblate](https://hosted.weblate.org/projects/audify/translations/)
 
 ## Features
 

@@ -1,42 +1,23 @@
-/*
- *  This file is part of BlackHole (https://github.com/Sangwan5688/BlackHole).
- * 
- * BlackHole is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * BlackHole is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with BlackHole.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright (c) 2021-2022, Ankit Sangwan
- */
-
 import 'dart:io';
 import 'dart:math';
 
-import 'package:blackhole/CustomWidgets/custom_physics.dart';
-import 'package:blackhole/CustomWidgets/gradient_containers.dart';
-import 'package:blackhole/CustomWidgets/miniplayer.dart';
-import 'package:blackhole/CustomWidgets/snackbar.dart';
-import 'package:blackhole/CustomWidgets/textinput_dialog.dart';
-import 'package:blackhole/Helpers/backup_restore.dart';
-import 'package:blackhole/Helpers/downloads_checker.dart';
-import 'package:blackhole/Helpers/extensions.dart';
-import 'package:blackhole/Helpers/supabase.dart';
-import 'package:blackhole/Screens/Home/saavn.dart';
-import 'package:blackhole/Screens/Library/library.dart';
-import 'package:blackhole/Screens/LocalMusic/downed_songs.dart';
-import 'package:blackhole/Screens/Search/search.dart';
-import 'package:blackhole/Screens/Settings/setting.dart';
-import 'package:blackhole/Screens/Top Charts/top.dart';
-import 'package:blackhole/Screens/YouTube/youtube_home.dart';
-import 'package:blackhole/Services/ext_storage_provider.dart';
+import 'package:audify/CustomWidgets/custom_physics.dart';
+import 'package:audify/CustomWidgets/gradient_containers.dart';
+import 'package:audify/CustomWidgets/miniplayer.dart';
+import 'package:audify/CustomWidgets/snackbar.dart';
+import 'package:audify/CustomWidgets/textinput_dialog.dart';
+import 'package:audify/Helpers/backup_restore.dart';
+import 'package:audify/Helpers/downloads_checker.dart';
+import 'package:audify/Helpers/extensions.dart';
+import 'package:audify/Helpers/supabase.dart';
+import 'package:audify/Screens/Home/saavn.dart';
+import 'package:audify/Screens/Library/library.dart';
+//import 'package:audify/Screens/LocalMusic/downed_songs.dart';
+import 'package:audify/Screens/Search/search.dart';
+//import 'package:audify/Screens/Settings/setting.dart';
+import 'package:audify/Screens/Top Charts/top.dart';
+import 'package:audify/Screens/YouTube/youtube_home.dart';
+import 'package:audify/Services/ext_storage_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +25,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:phantom_connect/phantom_connect.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
+  final PhantomConnect phantomConnect;
+  const HomePage({
+    super.key,
+    required this.phantomConnect,
+  });
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -295,192 +282,193 @@ class _HomePageState extends State<HomePage> {
     return GradientContainer(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.transparent,
-        drawer: Drawer(
-          child: GradientContainer(
-            child: CustomScrollView(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                SliverAppBar(
-                  backgroundColor: Colors.transparent,
-                  automaticallyImplyLeading: false,
-                  elevation: 0,
-                  stretch: true,
-                  expandedHeight: MediaQuery.of(context).size.height * 0.2,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.of(context)!.appTitle,
-                        style: const TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: appVersion == null ? '' : '\nv$appVersion',
-                            style: const TextStyle(
-                              fontSize: 7.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
-                    titlePadding: const EdgeInsets.only(bottom: 40.0),
-                    centerTitle: true,
-                    background: ShaderMask(
-                      shaderCallback: (rect) {
-                        return LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.8),
-                            Colors.black.withOpacity(0.1),
-                          ],
-                        ).createShader(
-                          Rect.fromLTRB(0, 0, rect.width, rect.height),
-                        );
-                      },
-                      blendMode: BlendMode.dstIn,
-                      child: Image(
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
-                        image: AssetImage(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? 'assets/header-dark.jpg'
-                              : 'assets/header.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.home,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        leading: Icon(
-                          Icons.home_rounded,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        selected: true,
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      if (Platform.isAndroid)
-                        ListTile(
-                          title: Text(AppLocalizations.of(context)!.myMusic),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
-                          leading: Icon(
-                            MdiIcons.folderMusic,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DownloadedSongs(
-                                  showPlaylists: true,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.downs),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        leading: Icon(
-                          Icons.download_done_rounded,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/downloads');
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.playlists),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        leading: Icon(
-                          Icons.playlist_play_rounded,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/playlists');
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.settings),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        leading: Icon(
-                          Icons
-                              .settings_rounded, // miscellaneous_services_rounded,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  SettingPage(callback: callback),
-                            ),
-                          );
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.about),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        leading: Icon(
-                          Icons.info_outline_rounded,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/about');
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    children: <Widget>[
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 30, 5, 20),
-                        child: Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.madeBy,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        backgroundColor: Colors.black,
+        //-> For the draawer code call to function is here..
+        // drawer: Drawer(
+        //   child: GradientContainer(
+        //     child: CustomScrollView(
+        //       shrinkWrap: true,
+        //       physics: const BouncingScrollPhysics(),
+        //       slivers: [
+        //         SliverAppBar(
+        //           backgroundColor: Colors.transparent,
+        //           automaticallyImplyLeading: false,
+        //           elevation: 0,
+        //           stretch: true,
+        //           expandedHeight: MediaQuery.of(context).size.height * 0.2,
+        //           flexibleSpace: FlexibleSpaceBar(
+        //             title: RichText(
+        //               text: TextSpan(
+        //                 text: AppLocalizations.of(context)!.appTitle,
+        //                 style: const TextStyle(
+        //                   fontSize: 30.0,
+        //                   fontWeight: FontWeight.w500,
+        //                 ),
+        //                 children: <TextSpan>[
+        //                   TextSpan(
+        //                     text: appVersion == null ? '' : '\nv$appVersion',
+        //                     style: const TextStyle(
+        //                       fontSize: 7.0,
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //               textAlign: TextAlign.end,
+        //             ),
+        //             titlePadding: const EdgeInsets.only(bottom: 40.0),
+        //             centerTitle: true,
+        //             background: ShaderMask(
+        //               shaderCallback: (rect) {
+        //                 return LinearGradient(
+        //                   begin: Alignment.topCenter,
+        //                   end: Alignment.bottomCenter,
+        //                   colors: [
+        //                     Colors.black.withOpacity(0.8),
+        //                     Colors.black.withOpacity(0.1),
+        //                   ],
+        //                 ).createShader(
+        //                   Rect.fromLTRB(0, 0, rect.width, rect.height),
+        //                 );
+        //               },
+        //               blendMode: BlendMode.dstIn,
+        //               child: Image(
+        //                 fit: BoxFit.cover,
+        //                 alignment: Alignment.topCenter,
+        //                 image: AssetImage(
+        //                   Theme.of(context).brightness == Brightness.dark
+        //                       ? 'assets/header-dark.jpg'
+        //                       : 'assets/header.jpg',
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //         // SliverList(
+        //         //   delegate: SliverChildListDelegate(
+        //         //     [
+        //         //       ListTile(
+        //         //         title: Text(
+        //         //           AppLocalizations.of(context)!.home,
+        //         //           style: TextStyle(
+        //         //             color: Theme.of(context).colorScheme.secondary,
+        //         //           ),
+        //         //         ),
+        //         //         contentPadding:
+        //         //             const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //         leading: Icon(
+        //         //           Icons.home_rounded,
+        //         //           color: Theme.of(context).colorScheme.secondary,
+        //         //         ),
+        //         //         selected: true,
+        //         //         onTap: () {
+        //         //           Navigator.pop(context);
+        //         //         },
+        //         //       ),
+        //         //       if (Platform.isAndroid)
+        //         //         // ListTile(
+        //         //         //   title: Text(AppLocalizations.of(context)!.myMusic),
+        //         //         //   contentPadding:
+        //         //         //       const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //         //   leading: Icon(
+        //         //         //     MdiIcons.folderMusic,
+        //         //         //     color: Theme.of(context).iconTheme.color,
+        //         //         //   ),
+        //         //         //   onTap: () {
+        //         //         //     Navigator.pop(context);
+        //         //         //     Navigator.push(
+        //         //         //       context,
+        //         //         //       MaterialPageRoute(
+        //         //         //         builder: (context) => const DownloadedSongs(
+        //         //         //           showPlaylists: true,
+        //         //         //         ),
+        //         //         //       ),
+        //         //         //     );
+        //         //         //   },
+        //         //         // ),
+        //         //         // ListTile(
+        //         //         //   title: Text(AppLocalizations.of(context)!.downs),
+        //         //         //   contentPadding:
+        //         //         //       const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //         //   leading: Icon(
+        //         //         //     Icons.download_done_rounded,
+        //         //         //     color: Theme.of(context).iconTheme.color,
+        //         //         //   ),
+        //         //         //   onTap: () {
+        //         //         //     Navigator.pop(context);
+        //         //         //     Navigator.pushNamed(context, '/downloads');
+        //         //         //   },
+        //         //         // ),
+        //         //         // ListTile(
+        //         //         //   title: Text(AppLocalizations.of(context)!.playlists),
+        //         //         //   contentPadding:
+        //         //         //       const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //         //   leading: Icon(
+        //         //         //     Icons.playlist_play_rounded,
+        //         //         //     color: Theme.of(context).iconTheme.color,
+        //         //         //   ),
+        //         //         //   onTap: () {
+        //         //         //     Navigator.pop(context);
+        //         //         //     Navigator.pushNamed(context, '/playlists');
+        //         //         //   },
+        //         //         // ),
+        //         //         // ListTile(
+        //         //         //   title: Text(AppLocalizations.of(context)!.settings),
+        //         //         //   contentPadding:
+        //         //         //       const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //         //   leading: Icon(
+        //         //         //     Icons
+        //         //         //         .settings_rounded, // miscellaneous_services_rounded,
+        //         //         //     color: Theme.of(context).iconTheme.color,
+        //         //         //   ),
+        //         //         //   onTap: () {
+        //         //         //     Navigator.pop(context);
+        //         //         //     Navigator.push(
+        //         //         //       context,
+        //         //         //       MaterialPageRoute(
+        //         //         //         builder: (context) =>
+        //         //         //             SettingPage(callback: callback),
+        //         //         //       ),
+        //         //         //     );
+        //         //         //   },
+        //         //         // ),
+        //         //         ListTile(
+        //         //           title: Text(AppLocalizations.of(context)!.about),
+        //         //           contentPadding:
+        //         //               const EdgeInsets.symmetric(horizontal: 20.0),
+        //         //           leading: Icon(
+        //         //             Icons.info_outline_rounded,
+        //         //             color: Theme.of(context).iconTheme.color,
+        //         //           ),
+        //         //           onTap: () {
+        //         //             Navigator.pop(context);
+        //         //             Navigator.pushNamed(context, '/about');
+        //         //           },
+        //         //         ),
+        //         //     ],
+        //         //   ),
+        //         // ),
+        //         SliverFillRemaining(
+        //           hasScrollBody: false,
+        //           child: Column(
+        //             children: <Widget>[
+        //               const Spacer(),
+        //               Padding(
+        //                 padding: const EdgeInsets.fromLTRB(5, 30, 5, 20),
+        //                 child: Center(
+        //                   child: Text(
+        //                     AppLocalizations.of(context)!.madeBy,
+        //                     textAlign: TextAlign.center,
+        //                     style: const TextStyle(fontSize: 12),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         body: WillPopScope(
           onWillPop: () => handleWillPop(context),
           child: SafeArea(
@@ -525,13 +513,14 @@ class _HomePageState extends State<HomePage> {
                             : Builder(
                                 builder: (context) => Transform.rotate(
                                   angle: 22 / 7 * 2,
+                                  //->Drawer Icon goes here...
                                   child: IconButton(
                                     icon: const Icon(
-                                      Icons.horizontal_split_rounded,
+                                      Icons.account_circle_rounded,
                                     ),
                                     // color: Theme.of(context).iconTheme.color,
                                     onPressed: () {
-                                      Scaffold.of(context).openDrawer();
+                                      connect(widget.phantomConnect);
                                     },
                                     tooltip: MaterialLocalizations.of(context)
                                         .openAppDrawerTooltip,
@@ -835,19 +824,19 @@ class _HomePageState extends State<HomePage> {
                                         top: 8.0,
                                         left: 4.0,
                                       ),
+
+                                      //--> Drawer Icon in Expanded view
+
                                       child: Transform.rotate(
                                         angle: 22 / 7 * 2,
                                         child: IconButton(
                                           icon: const Icon(
-                                            Icons.horizontal_split_rounded,
+                                            Icons.account_circle_rounded,
                                           ),
                                           // color: Theme.of(context).iconTheme.color,
                                           onPressed: () {
-                                            Scaffold.of(context).openDrawer();
+                                            connect(widget.phantomConnect);
                                           },
-                                          tooltip:
-                                              MaterialLocalizations.of(context)
-                                                  .openAppDrawerTooltip,
                                         ),
                                       ),
                                     ),
@@ -920,5 +909,15 @@ class _HomePageState extends State<HomePage> {
               ),
       ),
     );
+  }
+
+  void connect(phantomConnect) async {
+    Uri connectUrl = phantomConnect.generateConnectUri(
+        cluster: 'devnet', redirect: '/connect') as Uri;
+    try {
+      await launchUrl(connectUrl, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -19,9 +19,9 @@
 
 import 'dart:io';
 
-import 'package:blackhole/Screens/Library/liked.dart';
-import 'package:blackhole/Screens/LocalMusic/downed_songs.dart';
-import 'package:blackhole/Screens/LocalMusic/downed_songs_desktop.dart';
+import 'package:audify/Screens/Library/liked.dart';
+import 'package:audify/Screens/LocalMusic/downed_songs.dart';
+import 'package:audify/Screens/LocalMusic/downed_songs_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -58,17 +58,17 @@ class _LibraryPageState extends State<LibraryPage> {
                   builder: (BuildContext context) {
                     return Transform.rotate(
                       angle: 22 / 7 * 2,
-                      child: IconButton(
-                        color: Theme.of(context).iconTheme.color,
-                        icon: const Icon(
-                          Icons.horizontal_split_rounded,
-                        ),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
+                      // child: IconButton(
+                      //   color: Theme.of(context).iconTheme.color,
+                      //   icon: const Icon(
+                      //     Icons.horizontal_split_rounded,
+                      //   ),
+                      //   onPressed: () {
+                      //     Scaffold.of(context).openDrawer();
+                      //   },
+                      //   tooltip: MaterialLocalizations.of(context)
+                      //       .openAppDrawerTooltip,
+                      // ),
                     );
                   },
                 ),

@@ -17,14 +17,14 @@
  * Copyright (c) 2021-2022, Ankit Sangwan
  */
 
-import 'package:blackhole/CustomWidgets/collage.dart';
-import 'package:blackhole/CustomWidgets/gradient_containers.dart';
-import 'package:blackhole/CustomWidgets/miniplayer.dart';
-import 'package:blackhole/CustomWidgets/snackbar.dart';
-import 'package:blackhole/CustomWidgets/textinput_dialog.dart';
-import 'package:blackhole/Helpers/import_export_playlist.dart';
-import 'package:blackhole/Screens/Library/import.dart';
-import 'package:blackhole/Screens/Library/liked.dart';
+import 'package:audify/CustomWidgets/collage.dart';
+import 'package:audify/CustomWidgets/gradient_containers.dart';
+import 'package:audify/CustomWidgets/miniplayer.dart';
+import 'package:audify/CustomWidgets/snackbar.dart';
+import 'package:audify/CustomWidgets/textinput_dialog.dart';
+import 'package:audify/Helpers/import_export_playlist.dart';
+import 'package:audify/Screens/Library/import.dart';
+import 'package:audify/Screens/Library/liked.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';

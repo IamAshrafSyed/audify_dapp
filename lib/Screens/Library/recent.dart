@@ -17,11 +17,11 @@
  * Copyright (c) 2021-2022, Ankit Sangwan
  */
 
-import 'package:blackhole/CustomWidgets/empty_screen.dart';
-import 'package:blackhole/CustomWidgets/gradient_containers.dart';
-import 'package:blackhole/CustomWidgets/like_button.dart';
-import 'package:blackhole/CustomWidgets/miniplayer.dart';
-import 'package:blackhole/Screens/Player/audioplayer.dart';
+import 'package:audify/CustomWidgets/empty_screen.dart';
+import 'package:audify/CustomWidgets/gradient_containers.dart';
+import 'package:audify/CustomWidgets/like_button.dart';
+import 'package:audify/CustomWidgets/miniplayer.dart';
+import 'package:audify/Screens/Player/audioplayer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

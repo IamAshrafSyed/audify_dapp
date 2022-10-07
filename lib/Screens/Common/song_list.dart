@@ -17,17 +17,17 @@
  * Copyright (c) 2021-2022, Ankit Sangwan
  */
 
-import 'package:blackhole/APIs/api.dart';
-import 'package:blackhole/CustomWidgets/bouncy_sliver_scroll_view.dart';
-import 'package:blackhole/CustomWidgets/copy_clipboard.dart';
-import 'package:blackhole/CustomWidgets/download_button.dart';
-import 'package:blackhole/CustomWidgets/gradient_containers.dart';
-import 'package:blackhole/CustomWidgets/like_button.dart';
-import 'package:blackhole/CustomWidgets/miniplayer.dart';
-import 'package:blackhole/CustomWidgets/playlist_popupmenu.dart';
-import 'package:blackhole/CustomWidgets/snackbar.dart';
-import 'package:blackhole/CustomWidgets/song_tile_trailing_menu.dart';
-import 'package:blackhole/Screens/Player/audioplayer.dart';
+import 'package:audify/APIs/api.dart';
+import 'package:audify/CustomWidgets/bouncy_sliver_scroll_view.dart';
+import 'package:audify/CustomWidgets/copy_clipboard.dart';
+import 'package:audify/CustomWidgets/download_button.dart';
+import 'package:audify/CustomWidgets/gradient_containers.dart';
+import 'package:audify/CustomWidgets/like_button.dart';
+import 'package:audify/CustomWidgets/miniplayer.dart';
+import 'package:audify/CustomWidgets/playlist_popupmenu.dart';
+import 'package:audify/CustomWidgets/snackbar.dart';
+import 'package:audify/CustomWidgets/song_tile_trailing_menu.dart';
+import 'package:audify/Screens/Player/audioplayer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
