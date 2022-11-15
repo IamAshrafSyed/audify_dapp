@@ -16,6 +16,7 @@ import 'package:audify/Screens/Library/library.dart';
 import 'package:audify/Screens/Search/search.dart';
 //import 'package:audify/Screens/Settings/setting.dart';
 import 'package:audify/Screens/Top Charts/top.dart';
+import 'package:audify/Screens/Audius/audius.dart';
 import 'package:audify/Screens/YouTube/youtube_home.dart';
 import 'package:audify/Services/ext_storage_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -223,7 +224,7 @@ class _HomePageState extends State<HomePage> {
           ) as String;
           if (autoBackPath == '') {
             ExtStorageProvider.getExtStorage(
-              dirName: 'BlackHole/Backups',
+              dirName: 'Audify/Backups',
             ).then((value) {
               Hive.box('settings').put('autoBackPath', value);
               createBackup(
@@ -231,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                 checked,
                 boxNames,
                 path: value,
-                fileName: 'BlackHole_AutoBackup',
+                fileName: 'Audify_AutoBackup',
                 showDialog: false,
               );
             });
@@ -241,7 +242,7 @@ class _HomePageState extends State<HomePage> {
               checked,
               boxNames,
               path: autoBackPath,
-              fileName: 'BlackHole_AutoBackup',
+              fileName: 'Audify_AutoBackup',
               showDialog: false,
             );
           }
@@ -542,6 +543,11 @@ class _HomePageState extends State<HomePage> {
                             icon: const Icon(MdiIcons.youtube),
                             label: Text(AppLocalizations.of(context)!.youTube),
                           ),
+                          //-> for audius
+                          NavigationRailDestination(
+                            icon: const Icon(Icons.adobe_rounded),
+                            label: Text(AppLocalizations.of(context)!.audius),
+                          ),
                           NavigationRailDestination(
                             icon: const Icon(Icons.my_library_music_rounded),
                             label: Text(AppLocalizations.of(context)!.library),
@@ -824,9 +830,6 @@ class _HomePageState extends State<HomePage> {
                                         top: 8.0,
                                         left: 4.0,
                                       ),
-
-                                      //--> Drawer Icon in Expanded view
-
                                       child: Transform.rotate(
                                         angle: 22 / 7 * 2,
                                         child: IconButton(
@@ -847,6 +850,7 @@ class _HomePageState extends State<HomePage> {
                               pageController: _pageController,
                             ),
                             const YouTube(),
+                            const Audius(),
                             const LibraryPage(),
                           ],
                         ),
@@ -892,6 +896,13 @@ class _HomePageState extends State<HomePage> {
                           SalomonBottomBarItem(
                             icon: const Icon(MdiIcons.youtube),
                             title: Text(AppLocalizations.of(context)!.youTube),
+                            selectedColor:
+                                Theme.of(context).colorScheme.secondary,
+                          ),
+                          //->Audius tab
+                          SalomonBottomBarItem(
+                            icon: const Icon(Icons.adobe_rounded),
+                            title: Text(AppLocalizations.of(context)!.audius),
                             selectedColor:
                                 Theme.of(context).colorScheme.secondary,
                           ),
